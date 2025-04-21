@@ -113,8 +113,11 @@ export default function Signup() {
         >
           <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
           <Text style={{ marginHorizontal: 12, color: "#9CA3AF" }}>
-            or sign up with
+            have an account <Text style={{ color: "rgb(0, 95, 175)" }} mode="text" onPress={() => router.push("/login")}>
+              Log In
+            </Text>
           </Text>
+
           <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
         </View>
       </View>
