@@ -7,6 +7,7 @@ export default function Login() {
   const [checked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
 
   return (
@@ -49,10 +50,10 @@ export default function Login() {
         <View>
           <TextInput
             label="Password"
-            secureTextEntry
+            secureTextEntry={!passwordVisible}
             value={password}
             onChangeText={(text) => setPassword(text)}
-            right={<TextInput.Icon icon="eye" />}
+            right={<TextInput.Icon icon={passwordVisible ? "eye-off" : "eye"} onPress={() => setPasswordVisible(!passwordVisible)} />}
           />
         </View>
         <View
@@ -71,7 +72,7 @@ export default function Login() {
             />
             <Text style={{ color: "#6B7280", marginLeft: 8 }}>Remember me</Text>
           </View>
-          <Button mode="text" onPress={() => {}}>
+          <Button mode="text" onPress={() => { }}>
             Forgot Password?
           </Button>
         </View>
@@ -79,7 +80,7 @@ export default function Login() {
       <View>
         <Button
           mode="contained"
-          onPress={() => {}}
+          onPress={() => { }}
           style={{ borderRadius: 32 }}
         >
           Sign In
@@ -148,6 +149,27 @@ export default function Login() {
           </TouchableOpacity>
         </View>
       </View>
+<<<<<<< HEAD
+=======
+      <Button
+        mode="outlined"
+        icon={() => (
+          <Image
+            source={{ uri: "https://img.icons8.com/color/48/google-logo.png" }}
+            style={{ width: 24, height: 24, marginRight: 8 }}
+          />
+        )}
+        onPress={() => { }}
+        contentStyle={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        style={{ borderRadius: 12 }}
+      >
+        Google
+      </Button>
+>>>>>>> 30039dbae4525ddd43123004f127d81fb31c49ea
     </View>
   );
 }
