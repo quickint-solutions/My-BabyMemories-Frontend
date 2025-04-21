@@ -100,7 +100,21 @@ export default function Login() {
               Sign Up
             </Text>
           </Text>
+          <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
+        </View>
 
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginVertical: 20,
+          }}
+        >
+          <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
+          <Text style={{ marginHorizontal: 12, color: "#9CA3AF" }}>
+            Or continue with
+          </Text>
           <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
         </View>
         <View
