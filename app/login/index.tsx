@@ -7,6 +7,7 @@ export default function Login() {
   const [checked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
 
   return (
@@ -49,10 +50,10 @@ export default function Login() {
         <View>
           <TextInput
             label="Password"
-            secureTextEntry
+            secureTextEntry={!passwordVisible}
             value={password}
             onChangeText={(text) => setPassword(text)}
-            right={<TextInput.Icon icon="eye" />}
+            right={<TextInput.Icon icon={passwordVisible ? "eye-off" : "eye"} onPress={() => setPasswordVisible(!passwordVisible)} />}
           />
         </View>
         <View
@@ -71,7 +72,7 @@ export default function Login() {
             />
             <Text style={{ color: "#6B7280", marginLeft: 8 }}>Remember me</Text>
           </View>
-          <Button mode="text" onPress={() => {}}>
+          <Button mode="text" onPress={() => { }}>
             Forgot Password?
           </Button>
         </View>
@@ -79,7 +80,7 @@ export default function Login() {
       <View>
         <Button
           mode="contained"
-          onPress={() => {}}
+          onPress={() => { }}
           style={{ borderRadius: 32 }}
         >
           Sign In
@@ -108,7 +109,7 @@ export default function Login() {
             style={{ width: 24, height: 24, marginRight: 8 }}
           />
         )}
-        onPress={() => {}}
+        onPress={() => { }}
         contentStyle={{
           flexDirection: "row",
           alignItems: "center",

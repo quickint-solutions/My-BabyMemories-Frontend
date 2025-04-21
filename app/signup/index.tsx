@@ -8,6 +8,7 @@ export default function Signup() {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
 
   return (
@@ -66,10 +67,15 @@ export default function Signup() {
         <View>
           <TextInput
             label="Password"
-            secureTextEntry
+            secureTextEntry={!passwordVisible}
             value={password}
             onChangeText={(text) => setPassword(text)}
-            right={<TextInput.Icon icon="eye" />}
+            right={
+              <TextInput.Icon
+                icon={passwordVisible ? "eye-off" : "eye"}
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              />
+            }
           />
         </View>
         <View
@@ -129,6 +135,24 @@ export default function Signup() {
         style={{ borderRadius: 12 }}
       >
         Google
+      </Button>
+      <Button
+        mode="outlined"
+        icon={() => (
+          <Image
+            source={{ uri: "https://img.icons8.com/color/48/facebook-new.png" }}
+            style={{ width: 24, height: 24, marginRight: 8 }}
+          />
+        )}
+        onPress={() => { }}
+        contentStyle={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        style={{ borderRadius: 12 }}
+      >
+        Facebook
       </Button>
     </View>
   );
