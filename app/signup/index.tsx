@@ -1,10 +1,127 @@
-import { View, Text } from "react-native";
-import React from "react";
-
+import { View, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { Text, Checkbox, TextInput, Button, Icon } from "react-native-paper";
+import { useRouter } from "expo-router";
 export default function Signup() {
+  const [checked, setChecked] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Signup</Text>
+    <View
+      style={{
+        flex: 1,
+        paddingHorizontal: 14,
+        paddingTop: 40,
+        paddingBottom: 24,
+        justifyContent: "space-between",
+      }}
+    >
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: 8,
+          }}
+        >
+          <TouchableOpacity onPress={() => router.back()}>
+            <Icon source="keyboard-backspace" size={30} />
+          </TouchableOpacity>
+        </View>
+        <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 4 }}>
+          Create Account
+        </Text>
+        <Text style={{ color: "#6B7280" }}>
+          Join us! It only takes a minute.
+        </Text>
+      </View>
+      <View style={{ gap: 10 }}>
+        <View>
+          <TextInput
+            label="Full Name"
+            value={fullName}
+            onChangeText={(text) => setFullName(text)}
+          />
+        </View>
+        <View>
+          <TextInput
+            label="Email"
+            value={email}
+            keyboardType="email-address"
+            autoComplete="email"
+            onChangeText={(text) => setEmail(text)}
+          />
+        </View>
+        <View>
+          <TextInput
+            label="Password"
+            secureTextEntry
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            right={<TextInput.Icon icon="eye" />}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+            status={checked ? "checked" : "unchecked"}
+            onPress={() => {
+              setChecked(!checked);
+            }}
+          />
+          <Text style={{ color: "#6B7280", marginLeft: 8 }}>
+            I agree to the Terms & Conditions
+          </Text>
+        </View>
+      </View>
+      <View>
+        <Button
+          mode="contained"
+          onPress={() => {}}
+          style={{ borderRadius: 32 }}
+        >
+          Sign Up
+        </Button>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginVertical: 20,
+          }}
+        >
+          <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
+          <Text style={{ marginHorizontal: 12, color: "#9CA3AF" }}>
+            or sign up with
+          </Text>
+          <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
+        </View>
+      </View>
+      <Button
+        mode="outlined"
+        icon={() => (
+          <Image
+            source={{ uri: "https://img.icons8.com/color/48/google-logo.png" }}
+            style={{ width: 24, height: 24, marginRight: 8 }}
+          />
+        )}
+        onPress={() => {}}
+        contentStyle={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        style={{ borderRadius: 12 }}
+      >
+        Google
+      </Button>
     </View>
   );
 }

@@ -13,8 +13,8 @@ export default function Login() {
     <View
       style={{
         flex: 1,
-        paddingHorizontal: 24,
-        paddingTop: 40,
+        paddingHorizontal: 14,
+        paddingTop: 20,
         paddingBottom: 24,
         justifyContent: "space-between",
       }}
