@@ -14,7 +14,7 @@ export default function Signup() {
       style={{
         flex: 1,
         paddingHorizontal: 14,
-        paddingTop: 40,
+        paddingTop: 20,
         paddingBottom: 24,
         justifyContent: "space-between",
       }}
@@ -103,25 +103,55 @@ export default function Signup() {
           </Text>
           <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 40,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: 120,
+              height: 120,
+              borderRadius: 16,
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: 20,
+              shadowRadius: 4,
+            }}
+          >
+            <Image
+              source={{
+                uri: "https://img.icons8.com/color/48/facebook-new.png",
+              }}
+              style={{ width: 40, height: 40, marginBottom: 8 }}
+            />
+            <Text style={{ fontWeight: "600", color: "#1a1a1a" }}>
+              Facebook
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              width: 120,
+              height: 120,
+              borderRadius: 16,
+              justifyContent: "center",
+              alignItems: "center",
+              shadowRadius: 4,
+            }}
+          >
+            <Image
+              source={{
+                uri: "https://img.icons8.com/color/48/google-logo.png",
+              }}
+              style={{ width: 40, height: 40, marginBottom: 8 }}
+            />
+            <Text style={{ fontWeight: "600", color: "#1a1a1a" }}>Google</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <Button
-        mode="outlined"
-        icon={() => (
-          <Image
-            source={{ uri: "https://img.icons8.com/color/48/google-logo.png" }}
-            style={{ width: 24, height: 24, marginRight: 8 }}
-          />
-        )}
-        onPress={() => {}}
-        contentStyle={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        style={{ borderRadius: 12 }}
-      >
-        Google
-      </Button>
     </View>
   );
 }
