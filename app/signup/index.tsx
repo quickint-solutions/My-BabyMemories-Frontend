@@ -4,8 +4,8 @@ import { Text, Checkbox, TextInput, Button, Icon } from "react-native-paper";
 import { useRouter } from "expo-router";
 export default function Signup() {
   const [checked, setChecked] = useState(false);
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -44,15 +44,15 @@ export default function Signup() {
         <View>
           <TextInput
             label="First Name"
-            value={firstname}
-            onChangeText={(text) => setFullName(text)}
+            value={firstName}
+            onChangeText={(text) => setFirstName(text)}
           />
         </View>
         <View>
           <TextInput
             label="Last Name"
-            value={lastname}
-            onChangeText={(text) => setFullName(text)}
+            value={lastName}
+            onChangeText={(text) => setLastName(text)}
           />
         </View>
         <View>
@@ -169,45 +169,6 @@ export default function Signup() {
           </TouchableOpacity>
         </View>
       </View>
-<<<<<<< HEAD
-=======
-      <Button
-        mode="outlined"
-        icon={() => (
-          <Image
-            source={{ uri: "https://img.icons8.com/color/48/google-logo.png" }}
-            style={{ width: 24, height: 24, marginRight: 8 }}
-          />
-        )}
-        onPress={() => { }}
-        contentStyle={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        style={{ borderRadius: 12 }}
-      >
-        Google
-      </Button>
-      <Button
-        mode="outlined"
-        icon={() => (
-          <Image
-            source={{ uri: "https://img.icons8.com/color/48/facebook-new.png" }}
-            style={{ width: 24, height: 24, marginRight: 8 }}
-          />
-        )}
-        onPress={() => { }}
-        contentStyle={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        style={{ borderRadius: 12 }}
-      >
-        Facebook
-      </Button>
->>>>>>> 30039dbae4525ddd43123004f127d81fb31c49ea
     </View>
   );
 }

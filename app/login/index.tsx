@@ -152,27 +152,6 @@ export default function Login() {
           </TouchableOpacity>
         </View>
       </View>
-<<<<<<< HEAD
-=======
-      <Button
-        mode="outlined"
-        icon={() => (
-          <Image
-            source={{ uri: "https://img.icons8.com/color/48/google-logo.png" }}
-            style={{ width: 24, height: 24, marginRight: 8 }}
-          />
-        )}
-        onPress={() => { }}
-        contentStyle={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        style={{ borderRadius: 12 }}
-      >
-        Google
-      </Button>
->>>>>>> 30039dbae4525ddd43123004f127d81fb31c49ea
     </View>
   );
 }
