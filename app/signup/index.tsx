@@ -4,7 +4,8 @@ import { Text, Checkbox, TextInput, Button, Icon } from "react-native-paper";
 import { useRouter } from "expo-router";
 export default function Signup() {
   const [checked, setChecked] = useState(false);
-  const [fullName, setFullName] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -41,8 +42,15 @@ export default function Signup() {
       <View style={{ gap: 10 }}>
         <View>
           <TextInput
-            label="Full Name"
-            value={fullName}
+            label="First Name"
+            value={firstname}
+            onChangeText={(text) => setFullName(text)}
+          />
+        </View>
+        <View>
+          <TextInput
+            label="Last Name"
+            value={lastname}
             onChangeText={(text) => setFullName(text)}
           />
         </View>
@@ -84,7 +92,7 @@ export default function Signup() {
       <View>
         <Button
           mode="contained"
-          onPress={() => {}}
+          onPress={() => { }}
           style={{ borderRadius: 32 }}
         >
           Sign Up
@@ -112,7 +120,7 @@ export default function Signup() {
             style={{ width: 24, height: 24, marginRight: 8 }}
           />
         )}
-        onPress={() => {}}
+        onPress={() => { }}
         contentStyle={{
           flexDirection: "row",
           alignItems: "center",
