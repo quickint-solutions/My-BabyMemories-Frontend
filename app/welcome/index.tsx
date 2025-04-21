@@ -9,7 +9,7 @@ export default function Welcome() {
   return (
     <View style={{ flex: 1, justifyContent: "space-between", padding: 20 }}>
       <View style={{ alignItems: "center", marginTop: 10 }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Welcome</Text>
+        <Text style={{ fontSize: 40, fontWeight: "bold" }}>Welcome</Text>
       </View>
       <View style={{ gap: 10 }}>
         <Button mode="contained" onPress={() => router.push("/login")}>

@@ -16,7 +16,7 @@ export default function Signup() {
       style={{
         flex: 1,
         paddingHorizontal: 14,
-        paddingTop: 40,
+        paddingTop: 20,
         paddingBottom: 24,
         justifyContent: "space-between",
       }}
@@ -120,7 +120,57 @@ export default function Signup() {
 
           <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 40,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: 120,
+              height: 120,
+              borderRadius: 16,
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: 20,
+              shadowRadius: 4,
+            }}
+          >
+            <Image
+              source={{
+                uri: "https://img.icons8.com/color/48/facebook-new.png",
+              }}
+              style={{ width: 40, height: 40, marginBottom: 8 }}
+            />
+            <Text style={{ fontWeight: "600", color: "#1a1a1a" }}>
+              Facebook
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              width: 120,
+              height: 120,
+              borderRadius: 16,
+              justifyContent: "center",
+              alignItems: "center",
+              shadowRadius: 4,
+            }}
+          >
+            <Image
+              source={{
+                uri: "https://img.icons8.com/color/48/google-logo.png",
+              }}
+              style={{ width: 40, height: 40, marginBottom: 8 }}
+            />
+            <Text style={{ fontWeight: "600", color: "#1a1a1a" }}>Google</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+<<<<<<< HEAD
+=======
       <Button
         mode="outlined"
         icon={() => (
@@ -157,6 +207,7 @@ export default function Signup() {
       >
         Facebook
       </Button>
+>>>>>>> 30039dbae4525ddd43123004f127d81fb31c49ea
     </View>
   );
 }
