@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { loginHandler, signupHandler } from "@/api-handler/auth";
+import { loginHandler, signupHandler, fetchUserData } from "@/api-handler/auth";
 
 interface AuthContextType {
   user: any;
@@ -29,8 +29,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (storedUser && storedToken) {
         // setUser(JSON.parse(storedUser));
         setToken(storedToken);
+      } else if (storedToken) {
+        setToken(storedToken);
       }
-      setIsLoading(false);
+      try {
+        const userData = await fetchUserData(storedToken);
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     };
     loadUser();
   }, []);
