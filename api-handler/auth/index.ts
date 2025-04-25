@@ -36,3 +36,23 @@ export const signupHandler = async (data: signupData) => {
     throw error;
   }
 };
+
+//token store
+export const fetchUserData = async (token: string) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/api/user/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
+
