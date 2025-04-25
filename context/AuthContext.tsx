@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
       try {
         const userData = await fetchUserData(storedToken);
-        console.log('userData -> ', userData)
         setUser(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
