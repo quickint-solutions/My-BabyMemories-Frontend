@@ -28,7 +28,7 @@ export default function Login() {
     },
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        await login(values);
+        await login(values.email, values.password);
       } catch (err: any) {
         Alert.alert("Error", err.message);
       } finally {
@@ -118,7 +118,7 @@ export default function Login() {
             />
             <Text style={{ color: "#6B7280", marginLeft: 8 }}>Remember me</Text>
           </View>
-          <Button mode="text" onPress={() => { }}>
+          <Button mode="text" onPress={() => {}}>
             Forgot Password?
           </Button>
         </View>

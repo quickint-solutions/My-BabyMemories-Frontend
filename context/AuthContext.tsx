@@ -6,14 +6,19 @@ interface AuthContextType {
   user: any;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (firstName: string, lastName: string, email: string, password: string) => Promise<void>;
+  signup: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
   logout: () => void;
 }
 
-const AuthContext = createContext < AuthContextType | undefined > (undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState < any > (null);
+  const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,7 +44,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     password: string
   ) => {
     const res = await signupHandler({ firstName, lastName, email, password });
-    console.log('res -> ', res)
     await AsyncStorage.setItem("user", JSON.stringify(res.user));
     setUser(res.user);
     return res;

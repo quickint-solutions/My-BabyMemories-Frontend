@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import { Text, Checkbox, TextInput, Button, Icon } from "react-native-paper";
 import { useRouter } from "expo-router";
@@ -9,12 +9,8 @@ import * as Yup from "yup";
 export default function Signup() {
   const { signup } = useAuth();
   const [checked, setChecked] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
-
 
   const {
     handleBlur,
@@ -33,9 +29,13 @@ export default function Signup() {
       password: "",
     },
     onSubmit: async (values, { setSubmitting }) => {
-      console.log('values -> ', values)
       try {
-        await signup(values.firstName, values.lastName, values.email, values.password);
+        await signup(
+          values.firstName,
+          values.lastName,
+          values.email,
+          values.password
+        );
       } catch (err: any) {
         Alert.alert("Error", err.message);
       } finally {
@@ -49,7 +49,6 @@ export default function Signup() {
       password: Yup.string().required("Password is required"),
     }),
   });
-
 
   return (
     <View
@@ -87,13 +86,10 @@ export default function Signup() {
             value={values.firstName}
             onChangeText={handleChange("firstName")}
             onBlur={handleBlur("firstName")}
-
           />
-          {
-            errors.firstName && touched.firstName && (
-              <Text style={{ color: "red" }}>{errors.firstName}</Text>
-            )
-          }
+          {errors.firstName && touched.firstName && (
+            <Text style={{ color: "red" }}>{errors.firstName}</Text>
+          )}
 
           <TextInput
             label="Last Name"
@@ -101,11 +97,9 @@ export default function Signup() {
             onChangeText={handleChange("lastName")}
             onBlur={handleBlur("lastName")}
           />
-          {
-            errors.lastName && touched.lastName && (
-              <Text style={{ color: "red" }}>{errors.lastName}</Text>
-            )
-          }
+          {errors.lastName && touched.lastName && (
+            <Text style={{ color: "red" }}>{errors.lastName}</Text>
+          )}
 
           <TextInput
             label="Email"
@@ -113,11 +107,9 @@ export default function Signup() {
             onChangeText={handleChange("email")}
             onBlur={handleBlur("email")}
           />
-          {
-            errors.email && touched.email && (
-              <Text style={{ color: "red" }}>{errors.email}</Text>
-            )
-          }
+          {errors.email && touched.email && (
+            <Text style={{ color: "red" }}>{errors.email}</Text>
+          )}
 
           <TextInput
             label="Password"
@@ -132,11 +124,9 @@ export default function Signup() {
               />
             }
           />
-          {
-            errors.password && touched.password && (
-              <Text style={{ color: "red" }}>{errors.password}</Text>
-            )
-          }
+          {errors.password && touched.password && (
+            <Text style={{ color: "red" }}>{errors.password}</Text>
+          )}
         </View>
         <View
           style={{
@@ -173,7 +163,11 @@ export default function Signup() {
         >
           <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
           <Text style={{ marginHorizontal: 12, color: "#9CA3AF" }}>
-            have an account <Text style={{ color: "rgb(0, 95, 175)" }} mode="text" onPress={() => router.push("/login")}>
+            have an account{" "}
+            <Text
+              style={{ color: "rgb(0, 95, 175)" }}
+              onPress={() => router.push("/login")}
+            >
               Log In
             </Text>
           </Text>
@@ -243,6 +237,6 @@ export default function Signup() {
           </TouchableOpacity>
         </View>
       </View>
-    </View >
+    </View>
   );
 }
