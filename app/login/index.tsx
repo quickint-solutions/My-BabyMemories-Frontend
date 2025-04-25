@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { loginHandler } from "@/api-handler/auth";
 
 export default function Login() {
   const { login } = useAuth();
@@ -28,8 +29,7 @@ export default function Login() {
     },
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        console.log("values -> ", values);
-        await login(values.email, values.password);
+        await login(values);
       } catch (err: any) {
         Alert.alert("Error", err.message);
       } finally {
@@ -119,7 +119,7 @@ export default function Login() {
             />
             <Text style={{ color: "#6B7280", marginLeft: 8 }}>Remember me</Text>
           </View>
-          <Button mode="text" onPress={() => {}}>
+          <Button mode="text" onPress={() => { }}>
             Forgot Password?
           </Button>
         </View>

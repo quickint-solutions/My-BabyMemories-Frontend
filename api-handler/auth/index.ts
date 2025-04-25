@@ -5,7 +5,6 @@ export interface loginData {
   password: string;
 }
 export const loginHandler = async (data: loginData) => {
-  console.log("loginHandler data -> ", data);
   try {
     const response = await axios.post(
       `${process.env.BACKEND_URL}/api/auth/login`,

@@ -1,139 +1,59 @@
-import { loginHandler, signupHandler } from "@/api-handler/auth";
-import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loginHandler, signupHandler } from "@/api-handler/auth";
 
-interface IAuthContext {
-  user: any | null;
-  authLoading: boolean;
-  logout: () => void;
+interface AuthContextType {
+  user: any;
+  isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (data: any) => Promise<void>;
-  //   resetPassword: (email: string) => Promise<void>;
-  //   refetchUser: (reloadApp?: boolean) => Promise<void>;
+  logout: () => void;
 }
 
-interface IAuthContextProvider {
-  children: React.ReactNode;
-  isSecureRoute?: boolean;
-  isPublicRoute?: boolean;
-  isAuthRoute?: boolean;
-}
+const AuthContext = createContext < AuthContextType | undefined > (undefined);
 
-const defaultProvider: IAuthContext = {
-  user: null,
-  authLoading: true,
-  logout: async () => {},
-  login: async () => {},
-  signup: async () => {},
-  //   resetPassword: async () => {},
-  //   refetchUser: async () => {},
-};
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState < any > (null);
+  const [isLoading, setIsLoading] = useState(true);
 
-const AuthContext = createContext<IAuthContext>(defaultProvider);
+  useEffect(() => {
+    const loadUser = async () => {
+      const storedUser = await AsyncStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      setIsLoading(false);
+    };
+    loadUser();
+  }, []);
 
-export default function AuthProvider(props: IAuthContextProvider) {
-  const router = useRouter();
-  const [user, setUser] = useState<null | any>(null);
-  const [authLoading, setAuthLoading] = useState(true);
-
-  const { mutate: handleSignup } = useMutation({
-    mutationFn: signupHandler,
-    onSuccess: async (data: any) => {
-      const accessToken = data.data.token;
-      const user = data.data;
-      await AsyncStorage.setItem("accessToken", accessToken);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-      setUser(user);
-      router.push("/dashboard");
-    },
-    onError: (error: any) => {},
-  });
-
-  const { mutate: handleLogin } = useMutation({
-    mutationFn: loginHandler,
-    onSuccess: async (data: any) => {
-      const accessToken = data.data.token;
-      const user = data.data;
-
-      await AsyncStorage.setItem("accessToken", accessToken);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-      setUser(user);
-      router.push("/dashboard");
-    },
-    onError: (error: any) => {},
-  });
-
-  //   const { mutateAsync: handleRefetchUser } = useMutation(
-  //     fetchCurrentUserHandler,
-  //     {
-  //       onSuccess: (data: ApiResponse) => {
-  //         if (!data.success) {
-  //           setAuthLoading(false);
-  //           return;
-  //         }
-  //         setUser(data.data);
-  //         setAuthLoading(false);
-  //       },
-  //     }
-  //   );
-
-  const signup = async (data: any) => {
-    await handleSignup(data);
-  };
   const login = async (email: string, password: string) => {
-    await handleLogin({ email, password });
+    const res = await loginHandler({ email, password });
+    await AsyncStorage.setItem("user", JSON.stringify(res.user));
+    setUser(res.user);
+  };
+
+  const signup = async (email: string, password: string) => {
+    const res = await signupHandler({ email, password });
+    await AsyncStorage.setItem("user", JSON.stringify(res.user));
+    setUser(res.user);
   };
 
   const logout = async () => {
-    await AsyncStorage.removeItem("accessToken");
-    axios.defaults.headers.common["Authorization"] = "";
+    await AsyncStorage.removeItem("user");
     setUser(null);
   };
-  //   const refetchUser = async (reloadApp?: boolean) => {
-  //     if (reloadApp) {
-  //       setAuthLoading(true);
-  //     }
-  //     await handleRefetchUser();
-  //   };
-
-  //   const resetPassword = async (email: string) => {
-  //     await handleResetPassword(email);
-  //   };
-
-  useEffect(() => {
-    const fetchToken = async () => {
-      const accessToken = await AsyncStorage.getItem("accessToken");
-      if (!accessToken) {
-        setAuthLoading(false);
-        return;
-      }
-      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-      // handleRefetchUser();
-    };
-    fetchToken();
-  }, []);
-
-  if (authLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        authLoading,
-        logout,
-        login,
-        signup,
-        // refetchUser,
-        // resetPassword,
-      }}
-    >
-      {props.children}
+    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
+      {children}
     </AuthContext.Provider>
   );
-}
-export const useAuth = () => useContext(AuthContext);
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
