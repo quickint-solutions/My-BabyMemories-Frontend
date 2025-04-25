@@ -41,7 +41,7 @@ export const signupHandler = async (data: signupData) => {
 export const fetchUserData = async (token: string) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/auth/me`,
+      `http://localhost:3000/api/user/me`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
