@@ -7,7 +7,7 @@ export interface loginData {
 export const loginHandler = async (data: loginData) => {
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/api/auth/login`,
+      `http://localhost:3000/api/auth/login`,
       data
     );
     return response.data;
@@ -24,9 +24,10 @@ export interface signupData {
   lastName: string;
 }
 export const signupHandler = async (data: signupData) => {
+  console.log("signupHandler data:", data);
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/api/auth/signup`,
+      `http://localhost:3000/api/auth/signup`,
       data
     );
     return response.data;

@@ -5,7 +5,6 @@ import { useRouter } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { loginHandler } from "@/api-handler/auth";
 
 export default function Login() {
   const { login } = useAuth();
