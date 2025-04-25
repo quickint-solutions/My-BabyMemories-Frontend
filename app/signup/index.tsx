@@ -35,12 +35,7 @@ export default function Signup() {
     onSubmit: async (values, { setSubmitting }) => {
       console.log('values -> ', values)
       try {
-        await signup({
-          firstName: values.firstName,
-          lastName: values.lastName,
-          email: values.email,
-          password: values.password
-        });
+        await signup(values.firstName, values.lastName, values.email, values.password);
       } catch (err: any) {
         Alert.alert("Error", err.message);
       } finally {
