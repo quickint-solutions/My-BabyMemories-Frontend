@@ -1,9 +1,11 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 export interface loginData {
   email: string;
   password: string;
 }
+
 export const loginHandler = async (data: loginData) => {
   try {
     const response = await axios.post(
@@ -24,7 +26,6 @@ export interface signupData {
   lastName: string;
 }
 export const signupHandler = async (data: signupData) => {
-  console.log("signupHandler data:", data);
   try {
     const response = await axios.post(
       `http://localhost:3000/api/auth/signup`,
@@ -34,5 +35,21 @@ export const signupHandler = async (data: signupData) => {
   } catch (error) {
     console.error("Signup error:", error);
     throw error;
+  }
+};
+
+export const fetchCurrentUserHandler = async (): Promise<any> => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/user/me`, {
+      headers: {
+        Authorization: `Bearer ${await AsyncStorage.getItem("accessToken")}`,
+      },
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error: any) {
+    throw error?.response?.data;
   }
 };

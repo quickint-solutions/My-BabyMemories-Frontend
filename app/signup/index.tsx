@@ -30,12 +30,7 @@ export default function Signup() {
     },
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        await signup(
-          values.firstName,
-          values.lastName,
-          values.email,
-          values.password
-        );
+        await signup(values);
       } catch (err: any) {
         Alert.alert("Error", err.message);
       } finally {
@@ -150,6 +145,7 @@ export default function Signup() {
           mode="contained"
           onPress={() => handleSubmit()}
           style={{ borderRadius: 32 }}
+          disabled={!isValid || isSubmitting}
         >
           Sign Up
         </Button>
