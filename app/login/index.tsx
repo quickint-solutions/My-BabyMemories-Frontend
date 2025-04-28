@@ -1,14 +1,45 @@
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import { Text, Checkbox, TextInput, Button, Icon } from "react-native-paper";
 import { useRouter } from "expo-router";
+import { useAuth } from "@/context/AuthContext";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function Login() {
+  const { login } = useAuth();
   const [checked, setChecked] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
+
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    isValid,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        await login(values.email, values.password);
+      } catch (err: any) {
+        Alert.alert("Error", err.message);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string().email("Invalid email").required("Email is required"),
+      password: Yup.string().required("Password is required"),
+    }),
+  });
 
   return (
     <View
@@ -41,20 +72,35 @@ export default function Login() {
         <View>
           <TextInput
             label="Email"
-            value={email}
+            value={values.email}
+            onBlur={handleBlur("email")}
+            onChangeText={handleChange("email")}
             keyboardType="email-address"
             autoComplete="email"
-            onChangeText={(text) => setEmail(text)}
           />
+          {errors.email && touched.email && (
+            <Text style={{ color: "red", marginTop: 4 }}>{errors.email}</Text>
+          )}
         </View>
         <View>
           <TextInput
             label="Password"
             secureTextEntry={!passwordVisible}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            right={<TextInput.Icon icon={passwordVisible ? "eye-off" : "eye"} onPress={() => setPasswordVisible(!passwordVisible)} />}
+            value={values.password}
+            onBlur={handleBlur("password")}
+            onChangeText={handleChange("password")}
+            right={
+              <TextInput.Icon
+                icon={passwordVisible ? "eye-off" : "eye"}
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              />
+            }
           />
+          {errors.password && touched.password && (
+            <Text style={{ color: "red", marginTop: 4 }}>
+              {errors.password}
+            </Text>
+          )}
         </View>
         <View
           style={{
@@ -80,7 +126,8 @@ export default function Login() {
       <View>
         <Button
           mode="contained"
-          onPress={() => { }}
+          onPress={() => handleSubmit()}
+          disabled={!isValid || isSubmitting}
           style={{ borderRadius: 32 }}
         >
           Sign In
@@ -96,7 +143,11 @@ export default function Login() {
         >
           <View style={{ flex: 1, height: 1, backgroundColor: "#D1D5DB" }} />
           <Text style={{ marginHorizontal: 12, color: "#9CA3AF" }}>
-            Don't have an account? <Text style={{ color: "rgb(0, 95, 175)" }} onPress={() => router.push("/signup")}>
+            Don't have an account?{" "}
+            <Text
+              style={{ color: "rgb(0, 95, 175)" }}
+              onPress={() => router.push("/signup")}
+            >
               Sign Up
             </Text>
           </Text>
