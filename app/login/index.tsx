@@ -118,7 +118,7 @@ export default function Login() {
             />
             <Text style={{ color: "#6B7280", marginLeft: 8 }}>Remember me</Text>
           </View>
-          <Button mode="text" onPress={() => {}}>
+          <Button mode="text" onPress={() => { }}>
             Forgot Password?
           </Button>
         </View>
